@@ -1,3 +1,13 @@
+# React Quiz Demo
+
+## Demo
+
+![React Quiz Demo](react-quiz-demo.gif)
+
+Reference: [Create a quiz with React](https://mitchgavan.com/react-quiz/)
+
+## Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
