@@ -4,7 +4,7 @@ import Question from '../components/Question';
 import QuestionCount from '../components/QuestionCount';
 import AnswerOption from '../components/AnswerOption';
 import { AnswerOptionType } from '../data/quizQuestions';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 type QuizProps = {
   answer: string;
@@ -26,31 +26,29 @@ const Quiz = ({
   onAnswerSelected,
 }: QuizProps) => {
   return (
-    <CSSTransitionGroup
-      className='container'
-      component='div'
-      transitionName='fade'
-      transitionEnterTimeout={800}
-      transitionLeaveTimeout={500}
-      transitionAppear
-      transitionAppearTimeout={500}
-    >
-      <div className='quiz' key={questionId}>
-        <QuestionCount counter={questionId} total={questionTotal} />
-        <Question content={question} />
-        <ul className='answer-options'>
-          {answerOptions.map(({ type, content }) => (
-            <AnswerOption
-              key={content}
-              answerContent={content}
-              answerType={type}
-              answer={answer}
-              onAnswerSelected={onAnswerSelected}
-            />
-          ))}
-        </ul>
-      </div>
-    </CSSTransitionGroup>
+    <TransitionGroup component='div'>
+      <CSSTransition
+        className='container'
+        key={questionId}
+        timeout={{ exit: 500, enter: 800, appear: 500 }}
+      >
+        <div className='quiz' key={questionId}>
+          <QuestionCount counter={questionId} total={questionTotal} />
+          <Question content={question} />
+          <ul className='answer-options'>
+            {answerOptions.map(({ type, content }) => (
+              <AnswerOption
+                key={content}
+                answerContent={content}
+                answerType={type}
+                answer={answer}
+                onAnswerSelected={onAnswerSelected}
+              />
+            ))}
+          </ul>
+        </div>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
 
@@ -65,3 +63,16 @@ Quiz.propTypes = {
 };
 
 export default Quiz;
+
+/*
+
+function App() {
+  const ref = React.useRef()
+  
+  return (
+    <Transition domRef={ref}>
+      <MaybeDOMmaybeFunctionMaybeClass refThatComponentAccepts={ref} />
+    </Transition>
+  )
+  
+  */
